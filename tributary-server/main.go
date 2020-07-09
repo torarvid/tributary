@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/gorilla/websocket"
-	"github.com/satori/go.uuid"
 	"log"
 	"net/http"
 	"strings"
 	"sync"
+
+	"github.com/gorilla/websocket"
+	uuid "github.com/satori/go.uuid"
 )
 
 type CommandHandlerFunc func(conn *websocket.Conn, id string, message map[string]interface{})
@@ -66,7 +67,7 @@ var (
 
 func main() {
 	flag.Parse()
-	fs := http.FileServer(http.Dir("static"))
+	fs := http.FileServer(http.Dir("../example"))
 	http.Handle("/", fs)
 	http.HandleFunc("/api/ws", handleWebSocket)
 	log.Println("Server starting on port", *port)
